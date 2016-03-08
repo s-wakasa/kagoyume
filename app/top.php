@@ -7,7 +7,7 @@ require_once("../util/scriptUtil.php");
 <html>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
-        <title>かごいっぱいのゆめ - 仮想商品購入サイト </title>
+        <title>かごいっぱいのゆめ - トップページ </title>
     </head>
     <body>
         <h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 仮想商品購入サイト </a></h1>
@@ -26,7 +26,7 @@ require_once("../util/scriptUtil.php");
         </select>
         <input type="text" name="query"  value="<?php /* echo h($query); */ ?>"/>
         <input type="submit" value="Yahooショッピングで検索"/>
-        </form>
+        </form><!--入力フォーム-->
         
 <!-- Begin Yahoo! JAPAN Web Services Attribution Snippet -->
 <a href="http://developer.yahoo.co.jp/about">

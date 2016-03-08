@@ -3,9 +3,10 @@ require_once("../util/defineUtil.php");
 require_once("../util/scriptUtil.php");
 
 $hits = array(); //検索結果を格納
-$query = !empty($_GET["query"]) ? $_GET["query"] : ""; //(aaa)?bbb:cccでaaaの真偽に応じてbbbあるいはcccを行う
+$query = !empty($_GET["query"]) ? $_GET["query"] : ""; //(a)?b:cでaの真偽に応じてbあるいはcを行う
 $sort =  !empty($_GET["sort"]) && array_key_exists($_GET["sort"], $sortOrder) ? $_GET["sort"] : "-score";
 $category_id = ctype_digit($_GET["category_id"]) && array_key_exists($_GET["category_id"], $categories) ? $_GET["category_id"] : 1;
+//受け取ったGETの存在に応じて、APIへ送るパラメータを変数へ格納
 
 if ($query != "") {
 	$query4url = rawurlencode($query);
@@ -18,6 +19,10 @@ if ($query != "") {
 }
 ?>
 <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+        <title>かごいっぱいのゆめ - 検索結果</title>
+    </head>
 <body>
 <h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 仮想商品購入サイト </a></h1>
 <form action="<?php echo SEARCH ?>" class="Search" method="GET">
@@ -35,15 +40,15 @@ if ($query != "") {
         </select>
         <input type="text" name="query"  value="<?php /* echo h($query); */ ?>"/>
         <input type="submit" value="Yahooショッピングで検索"/>
-        </form>
+        </form><!-- 入力フォーム -->
 <?php         
 foreach ($hits as $hit) { ?>
         <div class="Item">
-            <?php $product_code = h($hit->Code);?>
-            <h2><a href="<?php echo ITEM.'?'.$product_code ?>"><?php echo h($hit->Name); ?></a></h2>
-            <p><a href="<?php echo ITEM ?>"><img src="<?php echo h($hit->Image->Medium); ?>" /></a><font size="6" color="#ff0000"><?php echo h($hit->Price); ?>円</font></p>
+            <?php $item_code = h($hit->Code);?><?php echo $item_code;?>
+            <h2><a href="<?php echo ITEM.'?code='.$item_code ?>"><?php echo h($hit->Name); ?></a></h2>
+            <p><a href="<?php echo ITEM.'?code='.$item_code ?>"><img src="<?php echo h($hit->Image->Medium); ?>" /></a><font size="6" color="#ff0000"><?php echo h($hit->Price); ?>円</font></p>
           
-        </div><!-- $hit->で表示する要素を選択 -->
+        </div><!-- 商品IDを詳細ページへ送信 -->
         <?php } ?>
         </body>
 </html>
