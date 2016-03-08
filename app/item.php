@@ -44,6 +44,7 @@ $image = h($hits->Image->Small);
 	<p><?php echo h($hits->Review->Rate); ?><br></p>
 	
 	<form action="<?php echo ADD ?>" method="POST">
+	<input type="hidden" name="code"  value="<?php echo $item_code ?>">
 	<input type="hidden" name="name"  value="<?php echo $name ?>">
 	<input type="hidden" name="price"  value="<?php echo $price ?>">
 	<input type="hidden" name="image"  value="<?php echo $image ?>"> <!-- 配列をPOSTするの無理っぽい -->
