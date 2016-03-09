@@ -1,5 +1,7 @@
 <?php
 //カートに追加完了ページ
+require_once("../util/defineUtil.php");
+require_once("../util/scriptUtil.php");
 
 if(!empty($_COOKIE['access_count'])){
 	$count = $_COOKIE['access_count'];//2回目以降のアクセスはカウントに反映
@@ -13,15 +15,24 @@ setcookie("name[$count]",$_POST['name']);
 setcookie("price[$count]",$_POST['price']);
 setcookie("image[$count]",$_POST['image']);
 
-//if(!empty($_COOKIE["name"])){ $name = $_COOKIE["name"];}
-//if(!empty($_COOKIE["price"])){ $price = $_COOKIE["price"];}
-//if(!empty($_COOKIE["image"])){ $image = $_COOKIE["image"];}
 
 $count++;
 setcookie('access_count',$count);//アクセスカウント増加
 
-//echo $_COOKIE['access_count'].'回アクセス'."<br/>";
-//echo $name[0].$price[0].$image[0].'格納完了';
-
+?>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+		<title>かごいっぱいのゆめ - カートに追加 </title>
+	</head>
+<body>
+	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 仮想商品購入サイト </a></h1>
+	<form action="<?php echo SEARCH ?>" class="Search" method="GET">
+	<a href="<?php echo CART ?>">カートの中を見る</a>
+<?php
 echo 'カートに追加しました'."<br/>";
 echo return_top();
+?>
+	</form>
+</body>
+</html>
