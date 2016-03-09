@@ -49,6 +49,7 @@ foreach ($hits as $hit) { ?>
             <p><a href="<?php echo ITEM.'?code='.$item_code ?>"><img src="<?php echo h($hit->Image->Medium); ?>" /></a><font size="6" color="#ff0000"><?php echo h($hit->Price); ?>円</font></p>
           
         </div><!-- 商品IDを詳細ページへ送信 -->
-        <?php } ?>
+        <?php } 
+echo "<br>".return_top(); ?>
         </body>
 </html>

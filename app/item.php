@@ -51,5 +51,6 @@ $image = h($hits->Image->Small);
 	<input type="submit" name="btnSubmit" value="カートへ追加">
 	
 	</form>
+	<?php echo "<br/>".return_top(); ?>
 	</body>
 </html>
