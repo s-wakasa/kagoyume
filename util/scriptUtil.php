@@ -4,6 +4,11 @@ function return_top(){
 	return "<a href='".ROOT_URL.TOP_URI."'>トップへ戻る</a>";
 }
 
+//cookieの値チェックをして返す関数
+function cookie_val_chk($key){
+	if(!empty($_COOKIE["$key"])){ return $_COOKIE["$key"];}
+}
+
 /**
  * @brief アプリケーションID
  * Yahoo! JAPANが提供するWeb APIを利用するアプリケーションには、アプリケーションIDが必要です。
