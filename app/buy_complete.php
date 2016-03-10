@@ -7,8 +7,10 @@ session_start();
 
 if(isset($_POST['type']) && isset($_POST['total']) && isset($_SESSION['userID'])){	
 
-	$result = insert_buy_record($_SESSION['userID'], $_POST['total'], $_POST['type']);
-	
+	$result = insert_buy_record($_SESSION['userID'], $_POST['total'], $_POST['type']);//購入情報テーブルへ追記
+	$result2 = serch_users_total($_SESSION['userID']);//これまでの総購入金額を参照
+	$result2[0]['total'] += $_POST['total'];
+	update_profile($result2[0]['total'],$_SESSION['userID']);//今回の購入を含めたtotal値で上書き
 }
 
 if(!isset($result)){
