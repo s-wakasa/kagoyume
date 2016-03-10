@@ -130,42 +130,18 @@ function serch_buy_total($userID){
 	//全レコードを連想配列として返却
 	return $seatch_query->fetchAll(PDO::FETCH_ASSOC);
 }
-
-/**
- * 複合条件検索を行う
- * @param type $name
- * @param type $year
- * @param type $type
- * @return type
- */
-function serch_profiles($name=null,$year=null,$type=null){
+//ユーザーの総購入金額を参照
+function serch_users_total($userID){
 	//db接続を確立
 	$search_db = connect2MySQL();
 
-	$search_sql = "SELECT * FROM user_t";
-	$flag = false;
-	if(isset($name)){
-		$search_sql .= " WHERE name like :name";
-		$flag = true;
-	}
-	if(isset($year) && $flag = false){
-		$search_sql .= " WHERE birthday like :year";
-		$flag = true;
-	}else if(isset($year)){
-		$search_sql .= " AND birthday like :year";
-	}
-	if(isset($type) && $flag = false){
-		$search_sql .= " WHERE type = :type";
-	}else if(isset($type)){
-		$search_sql .= " AND type = :type";
-	}
+	$search_sql = "select total from user_t where userID=:userID";
 
 	//クエリとして用意
 	$seatch_query = $search_db->prepare($search_sql);
 
-	$seatch_query->bindValue(':name','%'.$name.'%');
-	$seatch_query->bindValue(':year','%'.$year.'%');
-	if(isset($type)){$seatch_query->bindValue(':type',$type);}//typeの値がない時にバインドしないように修正
+	$seatch_query->bindValue(':userID',$userID);
+
 	//SQLを実行
 	try{
 		$seatch_query->execute();
@@ -174,12 +150,9 @@ function serch_profiles($name=null,$year=null,$type=null){
 		return $e->getMessage();
 	}
 
-	//該当するレコードを連想配列として返却
+	//全レコードを連想配列として返却
 	return $seatch_query->fetchAll(PDO::FETCH_ASSOC);
-
 }
-
-
 
 function profile_detail($id){
 	//db接続を確立
@@ -204,12 +177,12 @@ function profile_detail($id){
 	return $detail_query->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function delete_profile($id){
+//該当ユーザーidを持つ購入レコードを削除する
+function delete_buytable($id){
 	//db接続を確立
 	$delete_db = connect2MySQL();
 
-	$delete_sql = "DELETE FROM user_t WHERE userID=:id";
-	//DELETE文のスペルミスを修正
+	$delete_sql = "DELETE FROM buy_t WHERE userID=:id";
 
 	//クエリとして用意
 	$delete_query = $delete_db->prepare($delete_sql);
@@ -226,23 +199,38 @@ function delete_profile($id){
 	return null;
 }
 
-function update_profile($id,$name,$birthday,$type,$tell,$comment){
+
+//該当idを持つユーザーデータを削除する
+function delete_profile($id){
+	//db接続を確立
+	$delete_db = connect2MySQL();
+
+	$delete_sql = "DELETE FROM user_t WHERE userID=:id";
+
+	//クエリとして用意
+	$delete_query = $delete_db->prepare($delete_sql);
+
+	$delete_query->bindValue(':id',$id);
+
+	//SQLを実行
+	try{
+		$delete_query->execute();
+	} catch (PDOException $e) {
+		$delete_query=null;
+		return $e->getMessage();
+	}
+	return null;
+}
+//TOTALの総和をuser_tへ更新
+function update_profile($total,$userID){
 
 	$update_db = connect2MySQL();
-	$update_sql = "UPDATE user_t SET name=:name,birthday=:birthday,type=:type,tell=:tell,comment=:comment,newDate=:newDate WHERE userID =:id";
-	//現在時をdatetime型で取得
-	$datetime =new DateTime();
-	$date = $datetime->format('Y-m-d H:i:s');
+	$update_sql = "UPDATE user_t SET total=:total where userID=:userID";
 	//クエリとして用意
 	$update_query = $update_db->prepare($update_sql);
 
-	$update_query->bindValue(':id',$id);
-	$update_query->bindValue(':name',$name);
-	$update_query->bindValue(':birthday',$birthday);
-	$update_query->bindValue(':type',$type);
-	$update_query->bindValue(':tell',$tell);
-	$update_query->bindValue(':comment',$comment);
-	$update_query->bindValue(':newDate',$date);
+	$update_query->bindValue(':total',$total);
+	$update_query->bindValue(':userID',$userID);	
 
 	//SQLを実行
 	try{
@@ -251,5 +239,26 @@ function update_profile($id,$name,$birthday,$type,$tell,$comment){
 		$update_query=null;
 		return $e->getMessage();
 	}
-	//UPDATE用の関数
+}
+//更新フォームから受け取った値全てでテーブルを上書きする
+function update_usertable($name,$password,$mail,$address,$userID){
+
+	$update_db = connect2MySQL();
+	$update_sql = "UPDATE user_t SET name=:name,password=:password,mail=:mail,address=:address where userID=:userID";
+	//クエリとして用意
+	$update_query = $update_db->prepare($update_sql);
+
+	$update_query->bindValue(':name',$name);
+	$update_query->bindValue(':password',$password);
+	$update_query->bindValue(':mail',$mail);
+	$update_query->bindValue(':address',$address);
+	$update_query->bindValue(':userID',$userID);
+
+	//SQLを実行
+	try{
+		$update_query->execute();
+	} catch (PDOException $e) {
+		$update_query=null;
+		return $e->getMessage();
+	}
 }

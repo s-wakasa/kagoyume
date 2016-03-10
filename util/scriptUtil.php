@@ -1,6 +1,14 @@
 <?php
 //ユーザー定義関数管理ファイル
 
+//既にセッションの値チェックが行われているかどうかに問わず上書きの処理を行う
+function overwrite_session($key,$var){
+	if(empty($_SESSION[$key])){
+		$_SESSION[$key] = $var;
+	}else{
+		$_SESSION[$key] = $var;
+	}	
+}
 
 //フォームに値が入力されていればセッションから同じ値を返す関数
 function form_value($name){
