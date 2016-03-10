@@ -26,7 +26,7 @@ setcookie('access_count',$count);//アクセスカウント増加
 		<title>かごいっぱいのゆめ - カートに追加 </title>
 	</head>
 <body>
-	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 仮想商品購入サイト </a></h1>
+	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - カートに追加 </a></h1>
 	<form action="<?php echo SEARCH ?>" class="Search" method="GET">
 	<a href="<?php echo CART ?>">カートの中を見る</a>
 <?php

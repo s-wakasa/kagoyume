@@ -28,8 +28,8 @@ $access_count = cookie_val_chk('access_count');
 		<title>かごいっぱいのゆめ - カートの中にある商品 </title>
 	</head>
 <body>
-	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 仮想商品購入サイト </a></h1>
-	<form action="<?php echo SEARCH ?>" class="Search" method="GET"></form>
+	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - カートの中にある商品 </a></h1>
+	<!--  <form action="<?php echo SEARCH ?>" class="Search" method="GET"></form> -->
 <?php 
 for ($i=0; $i<$access_count; $i++){
 	
@@ -44,8 +44,11 @@ for ($i=0; $i<$access_count; $i++){
 		<!-- クッキーを保存した順に表示 --><?php
 
 	}
-}
-echo return_top();
+} ?>
+<form action="<?php echo BUY ?>" >
+<input type="submit" name="btnSubmit" value="購入確認画面へ進む"></form>
+<?php
+echo "<br/><br/>".return_top();
 ?>
 </body>
 </html>

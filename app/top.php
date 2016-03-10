@@ -2,14 +2,16 @@
 
 require_once("../util/defineUtil.php");
 require_once("../util/scriptUtil.php");
-
+session_start();
 ?>
 <html>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
         <title>かごいっぱいのゆめ - トップページ </title>
+      <!--  <meta http-equiv="refresh" content="1;URL=<?php echo CART;?>"> -->
     </head>
     <body>
+    	<div align="right"><?php echo login_chk(TOP_URI);?></div>
         <h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 仮想商品購入サイト </a></h1>
         <form action="<?php echo SEARCH ?>" class="Search" method="GET">
         表示順序:

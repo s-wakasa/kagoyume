@@ -24,7 +24,7 @@ if ($query != "") {
         <title>かごいっぱいのゆめ - 検索結果</title>
     </head>
 <body>
-<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 仮想商品購入サイト </a></h1>
+<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 検索結果 </a></h1>
 <form action="<?php echo SEARCH ?>" class="Search" method="GET">
 表示順序:
 <select name="sort">

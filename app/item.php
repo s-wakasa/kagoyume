@@ -31,7 +31,7 @@ $image = h($hits->Image->Small);
         <title>かごいっぱいのゆめ　- 商品詳細</title>
     </head>
 	<body>
-	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 仮想商品購入サイト </a></h1>
+	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 商品詳細 </a></h1>
 
 	<font size="6"><?php echo $name."<br/>"; ?></font>
 
