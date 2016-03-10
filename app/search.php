@@ -44,7 +44,7 @@ if ($query != "") {
 <?php         
 foreach ($hits as $hit) { ?>
         <div class="Item">
-            <?php $item_code = h($hit->Code);?><?php echo $item_code;?>
+            <?php $item_code = h($hit->Code);?>
             <h2><a href="<?php echo ITEM.'?code='.$item_code ?>"><?php echo h($hit->Name); ?></a></h2>
             <p><a href="<?php echo ITEM.'?code='.$item_code ?>"><img src="<?php echo h($hit->Image->Medium); ?>" /></a><font size="6" color="#ff0000"><?php echo h($hit->Price); ?>円</font></p>
           
