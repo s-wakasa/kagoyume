@@ -1,4 +1,5 @@
 <?php
+//(DB管理)ユーザー定義関数管理ファイル
 
 //DBへの接続を行う。成功ならPDOオブジェクトを、失敗なら中断、メッセージの表示を行う
 function connect2MySQL(){
@@ -12,7 +13,7 @@ function connect2MySQL(){
 	}
 }
 
-//レコードの挿入を行う。失敗した場合はエラー文を返却する
+//buy_tにレコードの挿入を行う。失敗した場合はエラー文を返却する
 function insert_buy_record($userid, $total, $type){
 	//db接続を確立
 	$insert_db = connect2MySQL();
@@ -47,11 +48,48 @@ function insert_buy_record($userid, $total, $type){
 			return null;
 }
 
+//user_tにレコードの挿入を行う。失敗した場合はエラー文を返却する
+function insert_user_record($name, $pass, $mail,$address){
+	//db接続を確立
+	$insert_db = connect2MySQL();
+
+	//DBに全項目のある1レコードを登録するSQL
+	$insert_sql = "INSERT INTO user_t(name,password,mail,address,newDate)"
+			. "VALUES(:name,:password,:mail,:address,:newDate)";
+
+			//現在時をdatetime型で取得
+			$datetime =new DateTime();
+			$date = $datetime->format('Y-m-d H:i:s');
+
+			//クエリとして用意
+			$insert_query = $insert_db->prepare($insert_sql);
+
+			//SQL文にセッションから受け取った値＆現在時をバインド
+			$insert_query->bindValue(':name',$name);
+			$insert_query->bindValue(':password',$pass);
+			$insert_query->bindValue(':mail',$mail);
+			$insert_query->bindValue(':address',$address);
+			$insert_query->bindValue(':newDate',$date);
+
+			//SQLを実行
+			try{
+				$insert_query->execute();
+			} catch (PDOException $e) {
+				//接続オブジェクトを初期化することでDB接続を切断
+				$insert_db=null;
+				return $e->getMessage();
+			}
+
+			$insert_db=null;
+			return null;
+}
+
+//user_tからユーザー名とパスが一致するものを探し出す
 function serch_all_profiles($name,$pass){
 	//db接続を確立
 	$search_db = connect2MySQL();
-
-	$search_sql = "select * from user_t where name=:name and password=:password";
+	
+	$search_sql = "select * from user_t where name= :name and password= :password";
 
 	//クエリとして用意
 	$seatch_query = $search_db->prepare($search_sql);
@@ -66,7 +104,29 @@ function serch_all_profiles($name,$pass){
 		$seatch_query=null;
 		return $e->getMessage();
 	}
-
+	//全レコードを連想配列として返却
+	return $seatch_query->fetchAll(PDO::FETCH_ASSOC);
+}
+//buy_tからユーザーのtotalを引き出す
+function serch_buy_total($userID){
+	//db接続を確立
+	$search_db = connect2MySQL();
+	
+	$search_sql = "select total from buy_t where userID=:userID";
+	
+	//クエリとして用意
+	$seatch_query = $search_db->prepare($search_sql);
+	
+	$seatch_query->bindValue(':userID',$userID);
+	
+	//SQLを実行
+	try{
+		$seatch_query->execute();
+	} catch (PDOException $e) {
+		$seatch_query=null;
+		return $e->getMessage();
+	}	
+	
 	//全レコードを連想配列として返却
 	return $seatch_query->fetchAll(PDO::FETCH_ASSOC);
 }

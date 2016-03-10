@@ -1,4 +1,30 @@
 <?php
+//ユーザー定義関数管理ファイル
+
+
+//フォームに値が入力されていればセッションから同じ値を返す関数
+function form_value($name){
+	if(isset($_POST['mode']) && $_POST['mode']=='REINPUT'){
+		if(isset($_SESSION[$name])){
+			return $_SESSION[$name];
+		}
+	}
+}
+
+// ポストの値チェックをしてからセッションに格納する
+//二回目以降のアクセス用に、ポストから値の上書きがされない該当セッションは初期化する
+
+function bind_p2s($name){
+	if(!empty($_POST[$name])){
+		$_SESSION[$name] = $_POST[$name];
+		return $_POST[$name];
+	}else{
+		$_SESSION[$name] = null;
+		return null;
+	}
+}
+
+
 //セッションのリセット処理
 function logout_s(){
 	session_unset();
@@ -8,10 +34,10 @@ function logout_s(){
 	session_destroy();
 }
 
-//ログインまたはログアウトのリンクを表示する関数
+//ログイン画面とユーザー情報のリンクを表示する関数
 function login_chk($key){
 	if(isset($_SESSION['userstate']) && $_SESSION['userstate']=='login'){
-		return 'ようこそ'.$_SESSION['username'].'さん'.'<a href='.LOGIN.'>ログアウト画面へ進む</a>';
+		return 'ようこそ<a href='.MYDATA.'>'.$_SESSION['username'].'</a>さん'.'&nbsp;'.'<a href='.LOGIN.'>ログアウト画面へ進む</a>';
 	}else{
 		$_SESSION['place']= $key;
 		return '<a href='.LOGIN.'>ログイン画面へ進む</a>';
