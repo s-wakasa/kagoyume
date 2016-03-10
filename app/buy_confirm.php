@@ -1,5 +1,5 @@
 <?php
-//カート内確認ページ
+//商品購入確認ページ
 require_once("../util/defineUtil.php");
 require_once("../util/scriptUtil.php");
 
@@ -7,13 +7,6 @@ session_start();
 $key_num='';
 $total = 0;
 
-//if(isset($_POST['delete'])){
-//	$key_num = $_POST['delete'];
-//	setcookie("code[$key_num]", '', time() - 1800);
-//	setcookie("name[$key_num]",'', time() - 1800);
-//	setcookie("price[$key_num]",'', time() - 1800);
-//	setcookie("image[$key_num]",'', time() - 1800);
-//}
 
 $code = cookie_val_chk('code');
 $name = cookie_val_chk('name');

@@ -1,4 +1,5 @@
 <?php
+//ログインページ
 require_once("../util/defineUtil.php");
 require_once("../util/scriptUtil.php");
 require_once("../util/dbaccessUtil.php");
@@ -12,8 +13,10 @@ if (isset($_SESSION['userstate']) && $_SESSION['userstate']=='login'){
 	
 if(isset($_POST['name']) && isset($_POST['pass'])){ //ログイン時に入力フォームの情報を受け取りDBのデータを参照
 	$result = serch_all_profiles($_POST['name'],$_POST['pass']);
+
 	if(isset($result[0])){//DBから受け取ったデータチェック
-		if(empty($_SESSION['userID'])&& empty($_SESSION['username'])){
+		if(empty($_SESSION['userID']) && empty($_SESSION['username'])){
+			echo $result[0]['userID'];
 			$_SESSION['userID'] = $result[0]['userID'];
 			$_SESSION['username'] = $_POST['name'];//ユーザーIDとユーザー名をセッションに保持
 		}
@@ -24,7 +27,7 @@ if(isset($_POST['name']) && isset($_POST['pass'])){ //ログイン時に入力�
 		die("<a href='".LOGIN."'>ログイン画面へ戻る</a>");
 	}		
 }
-$_SESSION['place']=TOP_URI;
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -36,6 +39,7 @@ $_SESSION['place']=TOP_URI;
         <title>かごいっぱいのゆめ - ログイン/ログアウト画面</title>
     </head>
 <body>
+	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - ログイン/ログアウト画面 </a></h1>
     <form action="<?php echo LOGIN ?>" method="POST">            
         ユーザー名:
         <input type="text" name="name" >
@@ -46,7 +50,9 @@ $_SESSION['place']=TOP_URI;
         <input type="submit" name="btnSubmit" value="送信">
         <input type="hidden" name="flag" value="true">
 	</form>
+    <?php
+    echo "<br/>"."<a href='".REGIST."'>新規会員登録はこちら</a>";
     
-    <?php echo "<br/>".return_top(); ?>
+    echo "<br/><br/>".return_top(); ?>
 </body>
 </html>
