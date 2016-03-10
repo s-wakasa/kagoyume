@@ -29,16 +29,16 @@ if ($query != "") {
 表示順序:
 <select name="sort">
 <?php foreach ($sortOrder as $key => $value) { ?>
-        <option value="<?php echo h($key); ?>" <?php /*if($sort == $key) echo "selected=\"selected\"";*/ ?>><?php echo h($value);?></option>
-        <?php } ?>										<!-- 謎の初期値 -->>
+        <option value="<?php echo h($key); ?>"><?php echo h($value);?></option>
+        <?php } ?>						
         </select>
         キーワード検索：
         <select name="category_id">
         <?php foreach ($categories as $id => $name) { ?>
-        <option value="<?php echo h($id); ?>" <?php /* if($category_id == $id) echo "selected=\"selected\""; */ ?>><?php echo h($name);?></option>
+        <option value="<?php echo h($id); ?>" ><?php echo h($name);?></option>
         <?php } ?>
         </select>
-        <input type="text" name="query"  value="<?php /* echo h($query); */ ?>"/>
+        <input type="text" name="query" "/>
         <input type="submit" value="Yahooショッピングで検索"/>
         </form><!-- 入力フォーム -->
 <?php         

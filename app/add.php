@@ -10,11 +10,10 @@ if(!empty($_COOKIE['access_count'])){
 	$count = 0;
 }
 
-setcookie("code[$count]",$_POST['code']);
+setcookie("code[$count]",$_POST['code']);//配列の要領で各要素をクッキーへ格納
 setcookie("name[$count]",$_POST['name']);
 setcookie("price[$count]",$_POST['price']);
 setcookie("image[$count]",$_POST['image']);
-
 
 $count++;
 setcookie('access_count',$count);//アクセスカウント増加

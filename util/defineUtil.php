@@ -1,4 +1,5 @@
 <?php
+//URL定数管理ファイル
 const ROOT_URL = 'http://localhost/develop/kagoyume/app/';//topディレクトリへのURL
 const TOP_URI = 'top.php';								//トップ（検索）ページ
 const SEARCH = 'search.php';						//検索結果ページ
