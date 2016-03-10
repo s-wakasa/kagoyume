@@ -10,6 +10,7 @@ require_once("../util/scriptUtil.php");
 		<title>かごいっぱいのゆめ - 新規会員登録ページ</title>
 	</head>
 	<body>
+	<div align="right"><?php echo login_chk(REGIST);?></div>
 	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 商品購入確認ページ </a></h1>
 
     <form action="<?php echo REG_CONFIRM ?>" method="POST">

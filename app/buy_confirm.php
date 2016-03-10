@@ -4,6 +4,11 @@ require_once("../util/defineUtil.php");
 require_once("../util/scriptUtil.php");
 
 session_start();
+
+if(!isset($_POST['mode']) or !$_POST['mode']=="BUYC"){//アクセスルートチェック
+	echo return_top();
+	die( "<br/>".'アクセスルートが不正です。もう一度トップページからやり直してください');
+}
 $key_num='';
 $total = 0;
 
@@ -23,6 +28,7 @@ $access_count = cookie_val_chk('access_count');
 		<title>かごいっぱいのゆめ - 商品購入確認ページ</title>
 	</head>
 <body>
+	<div align="right"><?php echo login_chk(BUY);?></div>
 	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 商品購入確認ページ </a></h1>
 	
 	<form action="<?php echo SEARCH ?>" class="Search" method="GET"></form>
@@ -49,6 +55,7 @@ for ($i=0; $i<$access_count; $i++){
 	<input type="submit" name="btnSubmit" value="この金額で購入する">
 	<input type="hidden" name="total" value="<?php echo $total;?>">
 	<input type="hidden" name="userID" value="<?php if(isset($_SESSION['userID'])){ echo $_SESSION['userID']; } ?>">
+	<input type="hidden" name="mode" value="BUY">
 	</form>
 	<form action="<?php echo CART ?>" ><input type="submit" name="btnSubmit" value="カートへ戻る"></form>
 

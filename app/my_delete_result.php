@@ -2,11 +2,19 @@
 require_once("../util/defineUtil.php");
 require_once("../util/scriptUtil.php");
 require_once("../util/dbaccessUtil.php");
+
+if(!isset($_POST['mode']) or !$_POST['mode']=="DELETE"){//アクセスルートチェック
+	echo return_top();
+	die( "<br/>".'アクセスルートが不正です。もう一度トップページからやり直してください');
+}
+
 session_start();
 
 delete_buytable($_SESSION['userID']);
 
 delete_profile($_SESSION['userID']);
+
+cookie_reset();
 ?>
 
 <html>

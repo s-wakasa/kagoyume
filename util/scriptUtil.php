@@ -1,6 +1,16 @@
 <?php
 //ユーザー定義関数管理ファイル
 
+//カート内の情報の削除
+function cookie_reset(){
+	for ($i=0; $i<$_COOKIE['access_count']; $i++){
+		setcookie("code[$i]", '', time() - 1800);
+		setcookie("name[$i]",'', time() - 1800);
+		setcookie("price[$i]",'', time() - 1800);
+		setcookie("image[$i]",'', time() - 1800);
+	}
+}
+
 //既にセッションの値チェックが行われているかどうかに問わず上書きの処理を行う
 function overwrite_session($key,$var){
 	if(empty($_SESSION[$key])){

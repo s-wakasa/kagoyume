@@ -3,6 +3,10 @@
 require_once("../util/defineUtil.php");
 require_once("../util/scriptUtil.php");
 
+if(!isset($_POST['mode']) or !$_POST['mode']=="ADD"){//アクセスルートチェック
+	echo return_top();
+	die( "<br/>".'アクセスルートが不正です。もう一度トップページからやり直してください');
+}
 if(!empty($_COOKIE['access_count'])){
 	$count = $_COOKIE['access_count'];//2回目以降のアクセスはカウントに反映
 }else{

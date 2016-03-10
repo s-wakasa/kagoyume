@@ -20,8 +20,11 @@ $result = profile_detail($_SESSION['userID']);//ユーザーの全ての情報�
 		<title>かごいっぱいのゆめ - ユーザー情報確認ページ</title>
 	</head>
 <body>
+   	<div align="right"><?php echo login_chk(MYDATA);?></div>
 <h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - ユーザー情報確認ページ </a></h1>
-
+<br>
+<a href="<?php echo CART ?>">カートの中を見る</a>
+<br>
 <b>ユーザー登録情報</b>
 <br>
 <br>
@@ -45,9 +48,11 @@ echo "<br/>合計".$total."円です";
 <br>
 	<form action="<?php echo UPDATE ?>" method="POST">
 	<input type="submit" name="btnSubmit" value="ユーザー情報を変更する">
+	<input type="hidden" name="mode" value="MUPDATE">
 	</form>
 	<form action="<?php echo DELETE ?>" method="POST">
 	<input type="submit" name="btnSubmit" value="ユーザー情報を削除する">
+	<input type="hidden" name="mode" value="MDELETE">
 	</form>
 </body>
 </html>

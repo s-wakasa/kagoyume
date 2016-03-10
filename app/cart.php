@@ -28,6 +28,7 @@ $access_count = cookie_val_chk('access_count');
 		<title>かごいっぱいのゆめ - カートの中にある商品 </title>
 	</head>
 <body>
+	<div align="right"><?php echo login_chk(CART);?></div>
 	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - カートの中にある商品 </a></h1>
 	<!--  <form action="<?php echo SEARCH ?>" class="Search" method="GET"></form> -->
 <?php 
@@ -45,7 +46,8 @@ for ($i=0; $i<$access_count; $i++){
 
 	}
 } ?>
-<form action="<?php echo BUY ?>" >
+<form action="<?php echo BUY ?>" method="POST">
+<input type="hidden" name="mode" value="BUYC">
 <input type="submit" name="btnSubmit" value="購入確認画面へ進む"></form>
 <?php
 echo "<br/><br/>".return_top();

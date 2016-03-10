@@ -7,7 +7,8 @@ session_start();
 $flag = 0;
 
 if (isset($_SESSION['userstate']) && $_SESSION['userstate']=='login'){
-	logout_s();
+	logout_s();//セッション情報の削除
+	cookie_reset();//カート内データの削除
 	die ("ログアウトしました<br/><br/>".return_top());
 }
 	

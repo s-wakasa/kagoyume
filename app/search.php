@@ -24,6 +24,7 @@ if ($query != "") {
         <title>かごいっぱいのゆめ - 検索結果</title>
     </head>
 <body>
+<div align="right"><?php echo login_chk(SEARCH);?></div>
 <h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 検索結果 </a></h1>
 <form action="<?php echo SEARCH ?>" class="Search" method="GET">
 表示順序:

@@ -3,6 +3,10 @@ session_start();
 require_once("../util/defineUtil.php");
 require_once("../util/scriptUtil.php");
 
+if(!isset($_POST['mode']) or !$_POST['mode']=="MUPDATE"){//アクセスルートチェック
+	echo return_top();
+	die( "<br/>".'アクセスルートが不正です。もう一度トップページからやり直してください');
+}
 ?>
 <html lang="ja">
 	<head>

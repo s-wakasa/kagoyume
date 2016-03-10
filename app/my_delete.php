@@ -1,6 +1,11 @@
 <?php
 require_once("../util/defineUtil.php");
 require_once("../util/scriptUtil.php");
+
+if(!isset($_POST['mode']) or !$_POST['mode']=="MDELETE"){//アクセスルートチェック
+	echo return_top();
+	die( "<br/>".'アクセスルートが不正です。もう一度トップページからやり直してください');
+}
 ?>
 <html lang="ja">
 	<head>
@@ -22,8 +27,12 @@ session_start();
 	
 
          このユーザーを削除します。本当によろしいですか？<br><br>
-
-   	<a href="<?php echo DEL_RESULT ?>">はい</a><br>
+	
+	
+	<form action="<?php echo DEL_RESULT ?>" method="POST">
+    <input type="hidden" name="mode" value="DELETE" >
+    <input type="submit" name="yes" value="はい">
+    </form>
     <br>
    	<a href="<?php echo ROOT_URL.TOP_URI ?>">いいえ</a>
 

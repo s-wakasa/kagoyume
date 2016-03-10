@@ -31,6 +31,7 @@ $image = h($hits->Image->Small);
         <title>かごいっぱいのゆめ　- 商品詳細</title>
     </head>
 	<body>
+	   	<div align="right"><?php echo login_chk(ITEM);?></div>
 	<h1><a href="<?php echo ROOT_URL.TOP_URI ?>">かごいっぱいのゆめ - 商品詳細 </a></h1>
 
 	<font size="6"><?php echo $name."<br/>"; ?></font>
@@ -47,7 +48,8 @@ $image = h($hits->Image->Small);
 	<input type="hidden" name="code"  value="<?php echo $item_code ?>">
 	<input type="hidden" name="name"  value="<?php echo $name ?>">
 	<input type="hidden" name="price"  value="<?php echo $price ?>">
-	<input type="hidden" name="image"  value="<?php echo $image ?>"> <!-- 配列をPOSTするの無理っぽい -->
+	<input type="hidden" name="image"  value="<?php echo $image ?>">
+	<input type="hidden" name="mode"  value="ADD">
 	<input type="submit" name="btnSubmit" value="カートへ追加">
 	
 	</form>
