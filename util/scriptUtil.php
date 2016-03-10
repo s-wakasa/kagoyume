@@ -1,4 +1,23 @@
 <?php
+//セッションのリセット処理
+function logout_s(){
+	session_unset();
+	if (isset($_COOKIE['PHPSESSID'])) {
+		setcookie('PHPSESSID', '', time() - 1800, '/');
+	}
+	session_destroy();
+}
+
+//ログインまたはログアウトのリンクを表示する関数
+function login_chk($key){
+	if(isset($_SESSION['userstate']) && $_SESSION['userstate']=='login'){
+		return 'ようこそ'.$_SESSION['username'].'さん'.'<a href='.LOGIN.'>ログアウト画面へ進む</a>';
+	}else{
+		$_SESSION['place']= $key;
+		return '<a href='.LOGIN.'>ログイン画面へ進む</a>';
+	}
+}
+
 //TOPページへのリンクを表示する関数
 function return_top(){
 	return "<a href='".ROOT_URL.TOP_URI."'>トップへ戻る</a>";

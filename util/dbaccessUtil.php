@@ -13,13 +13,13 @@ function connect2MySQL(){
 }
 
 //レコードの挿入を行う。失敗した場合はエラー文を返却する
-function insert_profiles($name, $birthday, $type, $tell, $comment){
+function insert_buy_record($userid, $total, $type){
 	//db接続を確立
 	$insert_db = connect2MySQL();
 
 	//DBに全項目のある1レコードを登録するSQL
-	$insert_sql = "INSERT INTO user_t(name,birthday,tell,type,comment,newDate)"
-			. "VALUES(:name,:birthday,:tell,:type,:comment,:newDate)";
+	$insert_sql = "INSERT INTO buy_t(userID,total,type,buyDate)"
+			. "VALUES(:userID,:total,:type,:buyDate)";
 
 			//現在時をdatetime型で取得
 			$datetime =new DateTime();
@@ -29,12 +29,10 @@ function insert_profiles($name, $birthday, $type, $tell, $comment){
 			$insert_query = $insert_db->prepare($insert_sql);
 
 			//SQL文にセッションから受け取った値＆現在時をバインド
-			$insert_query->bindValue(':name',$name);
-			$insert_query->bindValue(':birthday',$birthday);
-			$insert_query->bindValue(':tell',$tell);
+			$insert_query->bindValue(':userID',$userid);
+			$insert_query->bindValue(':total',$total);
 			$insert_query->bindValue(':type',$type);
-			$insert_query->bindValue(':comment',$comment);
-			$insert_query->bindValue(':newDate',$date);
+			$insert_query->bindValue(':buyDate',$date);
 
 			//SQLを実行
 			try{
